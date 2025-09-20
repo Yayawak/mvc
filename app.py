@@ -13,7 +13,8 @@ import os
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from controllers.csv_controllers import ProjectsController, StatsController
+from controllers.csv_controllers import AuthController, ProjectsController, StatsController
+from views.login_view import LoginView
 from views.projects_list_view import ProjectsListView
 from views.project_detail_view import ProjectDetailView
 from views.stats_view import StatsView
@@ -29,8 +30,9 @@ class CrowdfundingApp:
         # Center the window
         self.center_window()
         
-        # Initialize controllers (no auth needed)
-        self.projects_controller = ProjectsController()
+        # Initialize controllers
+        self.auth_controller = AuthController()
+        self.projects_controller = ProjectsController(self.auth_controller)
         self.stats_controller = StatsController()
         
         # Initialize views
@@ -39,8 +41,8 @@ class CrowdfundingApp:
         # Current view
         self.current_view = None
         
-        # Show projects list initially (no login required)
-        self.show_projects()
+        # Show login first
+        self.show_login()
     
     def center_window(self):
         # Center the window on screen
@@ -53,14 +55,21 @@ class CrowdfundingApp:
     
     def setup_views(self):
         # Setup all views
-        # Projects list view (no auth controller needed)
+        # Login view
+        self.login_view = LoginView(
+            self.root,
+            self.auth_controller,
+            self.on_login_success
+        )
+        
+        # Projects list view
         self.projects_list_view = ProjectsListView(
             self.root,
             self.projects_controller,
             self.on_project_select
         )
         
-        # Project detail view (no auth controller needed)
+        # Project detail view
         self.project_detail_view = ProjectDetailView(
             self.root,
             self.projects_controller,
@@ -76,6 +85,9 @@ class CrowdfundingApp:
         
         # Setup main menu
         self.setup_menu()
+        
+        # Setup status bar
+        self.setup_status_bar()
     
     def setup_menu(self):
         # Setup the main menu bar
@@ -88,12 +100,85 @@ class CrowdfundingApp:
         file_menu.add_command(label="Projects", command=self.show_projects)
         file_menu.add_command(label="Statistics", command=self.show_statistics)
         file_menu.add_separator()
+        file_menu.add_command(label="Logout", command=self.logout)
+        file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.root.quit)
+        
+        # User menu
+        user_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="User", menu=user_menu)
+        user_menu.add_command(label="Profile", command=self.show_profile)
+        user_menu.add_command(label="My Pledges", command=self.show_my_pledges)
         
         # Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Help", menu=help_menu)
         help_menu.add_command(label="About", command=self.show_about)
+        
+        # Store menubar reference for updates
+        self.menubar = menubar
+        self.user_menu = user_menu
+    
+    def setup_status_bar(self):
+        # Setup status bar at bottom of window
+        self.status_frame = ttk.Frame(self.root)
+        self.status_frame.pack(side=tk.BOTTOM, fill=tk.X)
+        
+        self.status_label = ttk.Label(self.status_frame, text="Not logged in", relief=tk.SUNKEN, anchor=tk.W)
+        self.status_label.pack(side=tk.LEFT, padx=5, pady=2)
+        
+        # Add logout button to status bar
+        self.status_logout_btn = ttk.Button(self.status_frame, text="Logout", command=self.logout)
+        self.status_logout_btn.pack(side=tk.RIGHT, padx=5, pady=2)
+    
+    def show_login(self):
+        # Show login view
+        self.hide_current_view()
+        self.login_view.show()
+        self.current_view = "login"
+    
+    def on_login_success(self):
+        # Handle successful login
+        self.update_user_display()
+        self.show_projects()
+    
+    def update_user_display(self):
+        # Update the window title, menu, and status bar to show current user
+        current_user = self.auth_controller.get_current_user()
+        if current_user:
+            self.root.title(f"{WINDOW_TITLE} - Welcome, {current_user.username}!")
+            # Update user menu label
+            self.user_menu.entryconfig(0, label=f"Profile ({current_user.username})")
+            # Update status bar
+            self.status_label.config(text=f"Logged in as: {current_user.username}")
+        else:
+            self.root.title(WINDOW_TITLE)
+            self.status_label.config(text="Not logged in")
+    
+    def logout(self):
+        # Handle logout
+        self.auth_controller.logout()
+        self.update_user_display()  # This will update title and status bar
+        self.show_login()
+    
+    def show_profile(self):
+        # Show user profile (simple message for now)
+        current_user = self.auth_controller.get_current_user()
+        if current_user:
+            messagebox.showinfo("Profile", f"Username: {current_user.username}\nEmail: {current_user.email}\nUser ID: {current_user.id}")
+        else:
+            messagebox.showerror("Error", "Not logged in")
+    
+    def show_my_pledges(self):
+        # Show user's pledges (simple message for now)
+        current_user = self.auth_controller.get_current_user()
+        if current_user:
+            from repositories.csv_repositories import PledgeRepository
+            pledge_repo = PledgeRepository()
+            user_pledges = pledge_repo.get_by_user(current_user.id)
+            messagebox.showinfo("My Pledges", f"You have made {len(user_pledges)} pledges")
+        else:
+            messagebox.showerror("Error", "Not logged in")
     
     def show_projects(self):
         # Show projects list view
@@ -116,7 +201,9 @@ class CrowdfundingApp:
     
     def hide_current_view(self):
         # Hide the current view
-        if self.current_view == "projects":
+        if self.current_view == "login":
+            self.login_view.hide()
+        elif self.current_view == "projects":
             self.projects_list_view.hide()
         elif self.current_view == "project_detail":
             self.project_detail_view.hide()

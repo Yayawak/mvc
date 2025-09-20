@@ -1,7 +1,7 @@
 id,project_id,name,description,min_amount,quota,remaining_quota
 1,10000001,Early Bird Supporter,Thank you message + app beta access,25.00,100,79
 2,10000001,Premium Supporter,Beta access + premium features for 1 year,100.00,50,29
-3,10000001,VIP Supporter,Lifetime premium access + personalized features,500.00,10,4
+3,10000001,VIP Supporter,Lifetime premium access + personalized features,500.00,10,3
 4,10000002,Eco Supporter,One eco-friendly water bottle,30.00,200,150
 5,10000002,Green Champion,Two bottles + eco-friendly tote bag,75.00,100,60
 6,10000002,Sustainability Partner,Five bottles + custom design option,200.00,25,15

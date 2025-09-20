@@ -243,11 +243,20 @@ class ProjectDetailView:
                     reward_tier_id = tier['id']
                     break
         
-        # Make the pledge (using a default user ID since no auth)
-        # In a real system, you might want to ask for user info
-        default_user_id = 1  # Use first user as default
+        # Make the pledge using authenticated user
+        # Get current user from the projects controller's auth service
+        if not self.projects_controller.auth_controller:
+            messagebox.showerror("Error", "Authentication not available")
+            return
+            
+        current_user = self.projects_controller.auth_controller.get_current_user()
+        
+        if not current_user:
+            messagebox.showerror("Error", "You must be logged in to make a pledge")
+            return
+        
         success, message = self.projects_controller.create_pledge(
-            default_user_id, self.current_project_id, amount, reward_tier_id
+            current_user.id, self.current_project_id, amount, reward_tier_id
         )
         
         if success:

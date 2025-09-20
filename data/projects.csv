@@ -1,5 +1,5 @@
 id,name,description,target_amount,current_amount,deadline,category_id,created_at
-10000001,Smart Learning App for Kids,An interactive educational app for children aged 5-12,50000.0,1025830.0,2025-12-31,2,2024-01-01T10:00:00
+10000001,Smart Learning App for Kids,An interactive educational app for children aged 5-12,50000.0,1047830.0,2025-12-31,2,2024-01-01T10:00:00
 10000002,Eco-Friendly Water Bottle,Sustainable water bottle made from recycled materials,30000.0,18000.0,2025-11-15,3,2024-01-01T10:00:00
 10000003,AI-Powered Study Assistant,AI tool to help students with homework and exam prep,75000.0,55500.0,2026-01-20,1,2024-01-01T10:00:00
 10000004,Community Garden Initiative,Creating green spaces in urban neighborhoods,25000.00,12000.00,2024-07-30,3,2024-01-01 10:00:00

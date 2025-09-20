@@ -70,16 +70,18 @@ class AuthController:
         return self.auth_service.is_logged_in()
 
 class ProjectsController:
-    def __init__(self):
+    def __init__(self, auth_controller=None):
         # Initialize repositories
         project_repo = ProjectRepository()
         category_repo = CategoryRepository()
         reward_tier_repo = RewardRepository()
         pledge_repo = PledgeRepository()
+        user_repo = UserRepository()
         
         # Initialize services with repositories
         self.project_service = ProjectService(project_repo, category_repo, reward_tier_repo)
         self.pledge_service = PledgeService(pledge_repo, project_repo, reward_tier_repo)
+        self.auth_controller = auth_controller  # Use passed auth controller
     
     def get_all_projects(self) -> List[Project]:
         # Get all projects

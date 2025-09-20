@@ -57,6 +57,17 @@ class AuthService:
     
     def is_logged_in(self) -> bool:
         return self.current_user is not None
+    
+    def get_user_info(self) -> Optional[Dict[str, Any]]:
+        # Get current user information
+        if self.current_user:
+            return {
+                'id': self.current_user.id,
+                'username': self.current_user.username,
+                'email': self.current_user.email,
+                'created_at': self.current_user.created_at
+            }
+        return None
 
 class ProjectService:
     def __init__(self, project_repo, category_repo, reward_repo):
