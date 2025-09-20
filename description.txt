@@ -1,0 +1,56 @@
+คำอธิบายการทำข้อสอบ
+
+==========================================
+โครงสร้าง MVC และหน้าที่ของไฟล์
+==========================================
+
+MODEL LAYER (ชั้นข้อมูล):
+- models/csv_models.py: กำหนดโครงสร้างข้อมูล (User, Project, Category, RewardTier, Pledge)
+- repositories/csv_repositories.py: จัดการการเข้าถึงข้อมูลจากไฟล์ CSV
+
+VIEW LAYER (ชั้นการแสดงผล):
+- views/login_view.py: หน้าจอเข้าสู่ระบบ
+- views/projects_list_view.py: หน้าจอรายการโปรเจค
+- views/project_detail_view.py: หน้าจอรายละเอียดโปรเจค
+- views/stats_view.py: หน้าจอสถิติภาพรวม
+
+CONTROLLER LAYER (ชั้นควบคุม):
+- controllers/csv_controllers.py: AuthController, ProjectsController, StatsController
+
+SERVICE LAYER (ชั้นธุรกิจ):
+- services/csv_services.py: AuthService, ProjectService, PledgeService
+
+MAIN APPLICATION:
+- app.py: จุดเริ่มต้น, จัดการ GUI (Tkinter), เชื่อมต่อ Controllers กับ Views
+
+==========================================
+การทำงานร่วมกัน
+==========================================
+
+FLOW: User → View → Controller → Service → Repository → CSV Files
+ตัวอย่าง: ProjectsListView → ProjectsController → ProjectService → ProjectRepository → projects.csv
+
+==========================================
+Routes/Actions หลัก
+==========================================
+
+AUTHENTICATION: login(), logout(), register()
+PROJECT: get_all_projects(), get_project_by_id(), search_projects()
+PLEDGE: create_pledge(), get_project_statistics()
+STATISTICS: get_overall_statistics(), get_top_projects()
+
+==========================================
+หน้าจอ View สำคัญ
+==========================================
+
+1. LOGIN VIEW: ฟอร์ม username/password, sample users
+2. PROJECTS LIST: รายการโปรเจค, ค้นหา, เรียงลำดับ, double-click
+3. PROJECT DETAIL: รายละเอียดโปรเจค, reward tiers, ฟอร์มบริจาค
+4. STATISTICS: สถิติการบริจาค, โปรเจค, เงินทุน, top projects
+
+==========================================
+การเชื่อมต่อข้อมูล
+==========================================
+
+CSV FILES: users.csv, projects.csv, categories.csv, reward_tiers.csv, pledges.csv
+DEPENDENCY: Controllers ← Services ← Repositories ← CSV Files
