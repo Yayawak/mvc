@@ -1,0 +1,11 @@
+id,username,email,password_hash,created_at
+1,john_doe,john@example.com,hashed_password_1,2024-01-01 10:00:00
+2,jane_smith,jane@example.com,hashed_password_2,2024-01-01 10:00:00
+3,mike_wilson,mike@example.com,hashed_password_3,2024-01-01 10:00:00
+4,sarah_jones,sarah@example.com,hashed_password_4,2024-01-01 10:00:00
+5,alex_brown,alex@example.com,hashed_password_5,2024-01-01 10:00:00
+6,emma_davis,emma@example.com,hashed_password_6,2024-01-01 10:00:00
+7,david_lee,david@example.com,hashed_password_7,2024-01-01 10:00:00
+8,lisa_wang,lisa@example.com,hashed_password_8,2024-01-01 10:00:00
+9,tom_chen,tom@example.com,hashed_password_9,2024-01-01 10:00:00
+10,anna_kim,anna@example.com,hashed_password_10,2024-01-01 10:00:00

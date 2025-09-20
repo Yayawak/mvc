@@ -1,0 +1,2 @@
+# No external dependencies required for CSV version
+# Tkinter is included with Python

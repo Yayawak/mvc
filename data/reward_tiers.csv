@@ -1,0 +1,25 @@
+id,project_id,name,description,min_amount,quota,remaining_quota
+1,10000001,Early Bird Supporter,Thank you message + app beta access,25.00,100,79
+2,10000001,Premium Supporter,Beta access + premium features for 1 year,100.00,50,29
+3,10000001,VIP Supporter,Lifetime premium access + personalized features,500.00,10,4
+4,10000002,Eco Supporter,One eco-friendly water bottle,30.00,200,150
+5,10000002,Green Champion,Two bottles + eco-friendly tote bag,75.00,100,60
+6,10000002,Sustainability Partner,Five bottles + custom design option,200.00,25,15
+7,10000003,Student Helper,Basic AI assistant access for 6 months,50.00,300,200
+8,10000003,Study Partner,Full AI features + priority support,150.00,100,50
+9,10000003,Academic Sponsor,Lifetime access + custom AI training,750.00,20,8
+10,10000004,Garden Friend,Thank you certificate + plant seeds,20.00,500,400
+11,10000004,Green Thumb,Certificate + gardening tools set,75.00,100,60
+12,10000004,Garden Guardian,Certificate + personalized garden plot,200.00,25,10
+13,10000005,Art Enthusiast,Digital gallery access for 1 year,40.00,200,150
+14,10000005,Art Collector,Premium gallery access + exclusive content,120.00,75,40
+15,10000005,Art Patron,Lifetime access + artist meet & greet,400.00,15,5
+16,10000006,Wellness Supporter,App access + wellness resources,35.00,300,250
+17,10000006,Mental Health Advocate,Premium features + counseling sessions,100.00,100,60
+18,10000006,Wellness Champion,Lifetime access + personal wellness coach,500.00,20,8
+19,10000007,Energy Saver,Energy monitor device + installation guide,80.00,150,100
+20,10000007,Eco Home,Monitor + smart home integration,200.00,50,25
+21,10000007,Green Home,Full smart home package + consultation,600.00,15,5
+22,10000008,History Explorer,VR headset rental + 5 history tours,60.00,200,150
+23,10000008,Time Traveler,VR headset + unlimited tours for 1 year,180.00,75,40
+24,10000008,History Scholar,Premium VR package + exclusive content,450.00,20,8
